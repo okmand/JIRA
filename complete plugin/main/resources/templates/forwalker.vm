@@ -1,0 +1,290 @@
+<html>
+<head>
+    <title>Hello, walker</title>
+    <meta name="decorator" content="atl.general">
+    $webResourceManager.requireResourcesForContext("myPlugin5")
+    $webResourceManager.requireResource("myPlugin5-resources")
+</head>
+<body>
+<script>
+    document.querySelector("#forclient-link").hidden=true;  //скрыть элемент, работает
+    document.querySelector("#forwalker-link").hidden=true;  //скрыть элемент, работает
+    document.querySelector("#fordog-admin-link").hidden=true;  //скрыть элемент, работает
+    document.querySelector("#forpaddock-admin-link").hidden=true;  //скрыть элемент, работает
+</script>
+<h1>Hello, $userName (you are a walker)</h1>
+<br>
+<table class="aui">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>lastName</th>
+            <th>firstName</th>
+            <th>middleName</th>
+            <th>birthday</th>
+            <th>phone</th>
+            <th>email</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td id="idForWalker">$walker.getID()</td>
+            <td>$walker.getLastName()</td>
+            <td>$walker.getFirstName()</td>
+            <td>$walker.getMiddleName()</td>
+            <td>$walker.getBirthday()</td>
+            <td>$walker.getPhone()</td>
+            <td>$walker.getEmail()</td>
+            #*<td>
+                #foreach($dogs in $client.getDogs())
+                    $dogs.getName() ($dogs.getID()) <br>
+                #end
+            </td>*#
+        </tr>
+    </tbody>
+</table>
+<br>
+
+<h2>Requests for walks:</h2>
+<table class="aui">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>place</th>
+        <th>walking time</th>
+        <th>duration</th>
+        <th>client</th>
+        <th>dogs</th>
+        <th>status</th>
+        <th>link</th>
+    </tr>
+    </thead>
+    <tbody>
+        #foreach( $paddock in $paddocks )
+            #if($paddock.getStatus()=="open")
+            <tr>
+                <td id="idAcceptCancel">$paddock.getID()</td>
+                <td>$paddock.getPlace()</td>
+                <td>$paddock.getWalkingTime()</td>
+                #set($dur=$paddock.getDuration())
+                #if($dur<61)
+                    <td>$dur m</td>
+                #else
+                    #set($whole = $dur/60)
+                    #set($remainder = $dur%60)
+                    <td>$whole H, $remainder m</td>
+                #end
+                <td>
+                    #set($client=$paddock.getClient())
+                    $client.getLastName() $client.getFirstName()
+                    ($client.getID())
+                </td>
+                <td>
+                    #foreach($dog in $paddock.getDogs())
+                        $dog.getName() ($dog.getID()) <br>
+                    #end
+                </td>
+                <td>$paddock.getStatus()</td>
+                <td><a href="$paddock.getLink()">Link IN JIRA</a></td>
+                <td><button class="buttonAcceptPaddock">ACCEPT</button></td>
+                <td><button class="buttonCancelPaddock">CANCEL</button></td>
+            </tr>
+            #end
+        #end
+    </tbody>
+</table>
+
+<h2>Accepted paddocks:</h2>
+<table class="aui">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>place</th>
+        <th>walking time</th>
+        <th>duration</th>
+        <th>client</th>
+        <th>dogs</th>
+        <th>status</th>
+        <th>link</th>
+    </tr>
+    </thead>
+    <tbody>
+        #foreach( $paddock in $paddocks )
+            #if($paddock.getStatus()=="accepted")
+            <tr>
+                <td id="idInProcessComplete">$paddock.getID()</td>
+                <td>$paddock.getPlace()</td>
+                <td>$paddock.getWalkingTime()</td>
+                #set($dur=$paddock.getDuration())
+                #if($dur<61)
+                    <td>$dur m</td>
+                #else
+                    #set($whole = $dur/60)
+                    #set($remainder = $dur%60)
+                    <td>$whole H, $remainder m</td>
+                #end
+                <td>
+                    #set($client=$paddock.getClient())
+                    $client.getLastName() $client.getFirstName()
+                    ($client.getID())
+                </td>
+                <td>
+                    #foreach($dog in $paddock.getDogs())
+                        $dog.getName() ($dog.getID()) <br>
+                    #end
+                </td>
+                <td>$paddock.getStatus()</td>
+                <td><a href="$paddock.getLink()">Link IN JIRA</a></td>
+                <td><button class="buttonInProcessPaddock">IN PROGRESS</button></td>
+            </tr>
+            #end
+        #end
+    </tbody>
+</table>
+
+<h2>In progress paddocks:</h2>
+<table class="aui">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>place</th>
+        <th>walking time</th>
+        <th>duration</th>
+        <th>client</th>
+        <th>dogs</th>
+        <th>status</th>
+        <th>link</th>
+    </tr>
+    </thead>
+    <tbody>
+        #foreach( $paddock in $paddocks )
+            #if($paddock.getStatus()=="in progress")
+            <tr>
+                <td id="idInProcessComplete">$paddock.getID()</td>
+                <td>$paddock.getPlace()</td>
+                <td>$paddock.getWalkingTime()</td>
+                #set($dur=$paddock.getDuration())
+                #if($dur<61)
+                    <td>$dur m</td>
+                #else
+                    #set($whole = $dur/60)
+                    #set($remainder = $dur%60)
+                    <td>$whole H, $remainder m</td>
+                #end
+                <td>
+                    #set($client=$paddock.getClient())
+                    $client.getLastName() $client.getFirstName()
+                    ($client.getID())
+                </td>
+                <td>
+                    #foreach($dog in $paddock.getDogs())
+                        $dog.getName() ($dog.getID()) <br>
+                    #end
+                </td>
+                <td>$paddock.getStatus()</td>
+                <td><a href="$paddock.getLink()">Link IN JIRA</a></td>
+                <td><button class="buttonCompletePaddock">COMPLETE</button></td>
+            </tr>
+            #end
+        #end
+    </tbody>
+</table>
+
+
+<h2>Completed paddocks:</h2>
+<table class="aui">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>place</th>
+        <th>walking time</th>
+        <th>duration</th>
+        <th>client</th>
+        <th>dogs</th>
+        <th>status</th>
+        <th>link</th>
+    </tr>
+    </thead>
+    <tbody>
+        #foreach( $paddock in $paddocks )
+            #if($paddock.getStatus()=="complete")
+                <tr>
+                    <td>$paddock.getID()</td>
+                    <td>$paddock.getPlace()</td>
+                    <td>$paddock.getWalkingTime()</td>
+                    #set($dur=$paddock.getDuration())
+                    #if($dur<61)
+                        <td>$dur m</td>
+                    #else
+                        #set($whole = $dur/60)
+                        #set($remainder = $dur%60)
+                        <td>$whole H, $remainder m</td>
+                    #end
+                    <td>
+                        #set($client=$paddock.getClient())
+                        $client.getLastName() $client.getFirstName()
+                        ($client.getID())
+                    </td>
+                    <td>
+                        #foreach($dog in $paddock.getDogs())
+                            $dog.getName() ($dog.getID()) <br>
+                        #end
+                    </td>
+                    <td>$paddock.getStatus()</td>
+                    <td><a href="$paddock.getLink()">Link IN JIRA</a></td>
+                </tr>
+            #end
+        #end
+    </tbody>
+</table>
+
+<h2>Canceled paddocks:</h2>
+<table class="aui">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>place</th>
+        <th>walking time</th>
+        <th>duration</th>
+        <th>client</th>
+        <th>dogs</th>
+        <th>status</th>
+        <th>link</th>
+    </tr>
+    </thead>
+    <tbody>
+        #foreach( $paddock in $paddocks )
+            #if($paddock.getStatus()=="cancel")
+            <tr>
+
+                <td>$paddock.getID()</td>
+                <td>$paddock.getPlace()</td>
+                <td>$paddock.getWalkingTime()</td>
+                #set($dur=$paddock.getDuration())
+                #if($dur<61)
+                    <td>$dur m</td>
+                #else
+                    #set($whole = $dur/60)
+                    #set($remainder = $dur%60)
+                    <td>$whole H, $remainder m</td>
+                #end
+                <td>
+                    #set($client=$paddock.getClient())
+                    $client.getLastName() $client.getFirstName()
+                    ($client.getID())
+                </td>
+                <td>
+                    #foreach($dog in $paddock.getDogs())
+                        $dog.getName() ($dog.getID()) <br>
+                    #end
+                </td>
+                <td>$paddock.getStatus()</td>
+                <td><a href="$paddock.getLink()">Link IN JIRA</a></td>
+            </tr>
+            #end
+        #end
+    </tbody>
+</table>
+
+</body>
+</html>

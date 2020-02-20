@@ -1,0 +1,80 @@
+<html>
+<head>
+    <title>dog</title>
+    <meta name="decorator" content="atl.general">
+    $webResourceManager.requireResourcesForContext("myPlugin5")
+    $webResourceManager.requireResource("myPlugin5-resources")
+</head>
+<body>
+<h1>DOG</h1>
+<button class="aui-button" id="dialog-button-add-a-dog-from-dog">Add a dog</button>
+<div class="content-container">
+    <br>
+    <table class="aui">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>name</th>
+                <th>gender</th>
+                <th>birthday</th>
+                <th>breed</th>
+                <th>color</th>
+                <th>character</th>
+                <th>client</th>
+                <th>paddocks</th>
+            </tr>
+        </thead>
+        <tbody>
+            #foreach( $dog in $dogs )
+            <tr>
+                <td id="idDogDog">$dog.getID()</td>
+                <td id="NameDog"><input size="10" value="$dog.getName()"></td>
+                <td id="GenderDog"><input size="10" value="$dog.getGender()"></td>
+                <td id="BirthdayDog"><input type="date" max="2019-12-31" value="$dog.getBirthday()"> <br> $dog.getBirthday()</td>
+                <td id="BreedDog"><input size="10" value="$dog.getBreed()"></td>
+                <td id="ColorDog"><input size="10" value="$dog.getColor()"></td>
+                <td id="CharacterDog"><input size="10" value="$dog.getCharacter()"></td>
+                <td id="ClientDog">
+                    #set ($client = $dog.getClient())
+                    <input size="5" value="$client.getID()">
+                    ($client.getFirstName() $client.getLastName())
+                </td>
+                <td>
+                    #foreach($paddock in $dog.getPaddocks())
+                        #set ($walker = $paddock.getWalker())
+                        $paddock.getPlace(), $paddock.getWalkingTime(),
+                        $walker.getLastName() $walker.getFirstName() ($paddock.getID())
+                        <a href="$paddock.getLink()">Link IN JIRA</a>
+                        <br>
+                    #end
+                </td>
+                <td><button class="buttonUpdateDog">update</button></td>
+                <td><button class="buttonDeleteDog">delete</button></td>
+            </tr>
+            #end
+        </tbody>
+    </table>
+</div>
+
+<div id="hidddd">
+    <table class="aui">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>lastName</th>
+            <th>firstName</th>
+        </tr>
+        </thead>
+        <tbody>
+            #foreach( $client in $clients )
+            <tr>
+                <td id="idClientClientDog">$client.getID()</td>
+                <td id="LastNameClientDog">$client.getLastName()</td>
+                <td id="FirstNameClientDog">$client.getFirstName()</td>
+            </tr>
+            #end
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

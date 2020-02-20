@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2"> 
+  <plugin-info> 
+    <description>${project.description}</description>  
+    <version>${project.version}</version>  
+    <vendor name="${project.organization.name}" url="${project.organization.url}"/>  
+    <param name="plugin-icon">images/pluginIcon.png</param>  
+    <param name="plugin-logo">images/pluginLogo.png</param> 
+  </plugin-info>  
+  <!-- add our i18n resource -->  
+  <resource type="i18n" name="i18n" location="myPlugin5"/>  
+  <!-- add our web resources -->  
+  <web-resource key="myPlugin5-resources" name="myPlugin5 Web Resources"> 
+    <dependency>com.atlassian.auiplugin:ajs</dependency>  
+<!--    <resource type="download" name="one.js" location="/js/one.js"/>  -->
+    <resource type="download" name="client.js" location="/js/client.js"/>  
+    <resource type="download" name="dog.js" location="/js/dog.js"/>  
+    <resource type="download" name="walker.js" location="/js/walker.js"/>  
+    <resource type="download" name="paddock.js" location="/js/paddock.js"/>  
+    <resource type="download" name="forclient.js" location="/js/forclient.js"/>  
+    <resource type="download" name="forclient2paddock.js" location="/js/forclient2paddock.js"/>  
+    <resource type="download" name="forwalker.js" location="/js/forwalker.js"/>  
+    <context>myPlugin5</context>
+  </web-resource>  
+  <web-section name="mySection" i18n-name-key="my-section.name" key="my-section" location="my-item-link" weight="1000"> 
+    <description key="my-section.description">The mySection Plugin</description> 
+  </web-section>  
+  <web-item name="myItem" i18n-name-key="my-item.name" key="my-item" section="system.top.navigation.bar" weight="1000"> 
+    <description key="my-item.description">The myItem Plugin</description>  
+    <label key="my-item.label"/>  
+    <link linkId="my-item-link"/> 
+  </web-item>  
+  <!--<web-item name="hello" i18n-name-key="hello.name" key="hello" section="my-item-link/my-section" weight="1000">
+    <description key="hello.description">The hello Plugin</description>  
+    <label key="hello.label"/>  
+    <link linkId="hello-link">http://localhost:8080/plugins/servlet/issuecrud</link> 
+  </web-item>-->  
+  <!--<servlet name="Issue CRUD" i18n-name-key="issue-crud.name" key="issue-crud" class="com.atlassian.tutorial.myPlugin5.servlet_OLD.IssueCRUD">
+    <description key="issue-crud.description">The Issue CRUD Plugin</description>
+    <url-pattern>/issuecrud</url-pattern>
+  </servlet>  -->
+  <servlet name="Servlet Dog" i18n-name-key="servlet-dog.name" key="servlet-dog" class="com.atlassian.tutorial.myPlugin5.servlet.ServletDog"> 
+    <description key="servlet-dog.description">The Servlet Dog Plugin</description>  
+    <url-pattern>/servletdog</url-pattern> 
+  </servlet>  
+  <servlet name="Servlet Client" i18n-name-key="servlet-client.name" key="servlet-client" class="com.atlassian.tutorial.myPlugin5.servlet.ServletClient"> 
+    <description key="servlet-client.description">The Servlet Client Plugin</description>  
+    <url-pattern>/servletclient</url-pattern> 
+  </servlet>  
+  <servlet name="Servlet Walker" i18n-name-key="servlet-walker.name" key="servlet-walker" class="com.atlassian.tutorial.myPlugin5.servlet.ServletWalker"> 
+    <description key="servlet-walker.description">The Servlet Walker Plugin</description>  
+    <url-pattern>/servletwalker</url-pattern> 
+  </servlet>  
+  <servlet name="Servlet Paddock" i18n-name-key="servlet-paddock.name" key="servlet-paddock" class="com.atlassian.tutorial.myPlugin5.servlet.ServletPaddock"> 
+    <description key="servlet-paddock.description">The Servlet Paddock Plugin</description>  
+    <url-pattern>/servletpaddock</url-pattern> 
+  </servlet>  
+  <servlet name="Servlet Choice" i18n-name-key="servlet-choice.name" key="servlet-choice" class="com.atlassian.tutorial.myPlugin5.servlet.ServletChoice"> 
+    <description key="servlet-choice.description">The Servlet Choice Plugin</description>  
+    <url-pattern>/servletchoice</url-pattern> 
+  </servlet>  
+  <!--<rest key="helloWorldRest" path="/helloworld" version="1.0">
+    <description>Provides hello world services.</description> 
+  </rest>  -->
+  <!--<rest key="RestProduct" path="/restproduct" version="1.0">
+    <description>Provides rest product services.</description> 
+  </rest>  -->
+  <!--<rest key="RestProby" path="/restproby" version="1.0">
+    <description>Provides rest proby services.</description> 
+  </rest>  -->
+  <rest key="RestDog" path="/restdog" version="1.0"> 
+    <description>Provides rest dog services.</description> 
+  </rest>  
+  <rest key="RestClient" path="/restclient" version="1.0"> 
+    <description>Provides rest client services.</description> 
+  </rest>  
+  <rest key="RestWalker" path="/restwalker" version="1.0"> 
+    <description>Provides rest walker services.</description> 
+  </rest>  
+  <rest key="RestPaddock" path="/restpaddock" version="1.0"> 
+    <description>Provides rest paddock services.</description> 
+  </rest>  
+  <component-import key="ao" interface="com.atlassian.activeobjects.external.ActiveObjects"/>  
+  <ao key="ao-entities"> 
+<!--    <entity>com.atlassian.tutorial.myPlugin5.model_OLD.Product</entity>  -->
+    <entity>com.atlassian.tutorial.myPlugin5.model.Dog</entity>  
+    <entity>com.atlassian.tutorial.myPlugin5.model.Client</entity>  
+    <entity>com.atlassian.tutorial.myPlugin5.model.Walker</entity>  
+    <entity>com.atlassian.tutorial.myPlugin5.model.Paddock</entity>  
+    <entity>com.atlassian.tutorial.myPlugin5.model.PaddockToDog</entity> 
+  </ao>  
+  <web-item name="for client (admin)" i18n-name-key="forclient.name" key="forclient" section="my-item-link/my-section" weight="1000"> 
+    <description key="forclient.description">The for client Plugin</description>  
+    <label key="forclient.label"/>  
+    <link linkId="forclient-link">http://localhost:8080/plugins/servlet/servletclient</link> 
+  </web-item>  
+  <web-item name="for walker (admin)" i18n-name-key="forwalker.name" key="forwalker" section="my-item-link/my-section" weight="1000"> 
+    <description key="forwalker.description">The for walker Plugin</description>  
+    <label key="forwalker.label"/>  
+    <link linkId="forwalker-link">http://localhost:8080/plugins/servlet/servletwalker</link> 
+  </web-item>  
+  <web-item name="for dog (admin)" i18n-name-key="fordog-(admin-).name" key="fordog-(admin-)" section="my-item-link/my-section" weight="1000"> 
+    <description key="fordog-(admin-).description">The for dog (admin) Plugin</description>  
+    <label key="fordog-(admin-).label"/>  
+    <link linkId="fordog-admin-link">http://localhost:8080/plugins/servlet/servletdog</link>
+  </web-item>
+  <web-item name="for paddock (admin)" i18n-name-key="forpaddock-(admin-).name" key="forpaddock-(admin-)" section="my-item-link/my-section" weight="1000">
+    <description key="forpaddock-(admin-).description">The for paddock (admin) Plugin</description>
+    <label key="forpaddock-(admin-).label"></label>
+    <link linkId="forpaddock-admin-link">http://localhost:8080/plugins/servlet/servletpaddock</link>
+  </web-item>
+  <web-item name="user page" i18n-name-key="choice.name" key="choice" section="my-item-link/my-section" weight="1000">
+    <description key="choice.description">The choice Plugin</description>
+    <label key="choice.label"/>
+    <link linkId="choice-link">http://localhost:8080/plugins/servlet/servletchoice</link>
+  </web-item>
+</atlassian-plugin>

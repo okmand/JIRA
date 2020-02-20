@@ -1,0 +1,53 @@
+<html>
+<head>
+    <title>walker</title>
+    <meta name="decorator" content="atl.general">
+    $webResourceManager.requireResourcesForContext("myPlugin5")
+    $webResourceManager.requireResource("myPlugin5-resources")
+</head>
+<body>
+<h1>WALKER</h1>
+<button class="aui-button" id="dialog-button-add-a-walker-from-walker">Add a walker</button>
+<div class="content-container">
+    <br>
+    <table class="aui">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>lastName</th>
+                <th>firstName</th>
+                <th>middleName</th>
+                <th>birthday</th>
+                <th>phone</th>
+                <th>email</th>
+                <th>paddocks</th>
+            </tr>
+        </thead>
+        <tbody>
+            #foreach( $walker in $walkers )
+            <tr>
+                <td id="idWalkerWalker">$walker.getID()</td>
+                <td id="LastNameWalker"><input size="10" value="$walker.getLastName()"></td>
+                <td id="FirstNameWalker"><input size="10" value="$walker.getFirstName()"></td>
+                <td id="MiddleNameWalker"><input size="10" value="$walker.getMiddleName()"></td>
+                <td id="BirthdayWalker"><input type="date" max="2005-12-31" value="$walker.getBirthday()"> <br> $walker.getBirthday()</td>
+                <td id="PhoneWalker"><input type="number" size="10" value="$walker.getPhone()"></td>
+                <td id="EmailWalker"><input size="15" value="$walker.getEmail()"></td>
+                <td>
+                    #foreach($paddock in $walker.getPaddock())
+                        #set ($client = $paddock.getClient())
+                        $paddock.getPlace(), $paddock.getWalkingTime(),
+                        $client.getLastName() $client.getFirstName() ($paddock.getID())
+                        <a href="$paddock.getLink()">Link IN JIRA</a>
+                        <br>
+                    #end
+                </td>
+                <td><button class="buttonUpdateWalker">update</button></td>
+                <td><button class="buttonDeleteWalker">delete</button></td>
+            </tr>
+            #end
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

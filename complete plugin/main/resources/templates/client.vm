@@ -1,0 +1,81 @@
+<html>
+<head>
+    <title>client</title>
+    <meta name="decorator" content="atl.general">
+    $webResourceManager.requireResourcesForContext("myPlugin5")
+    $webResourceManager.requireResource("myPlugin5-resources")
+</head>
+<body>
+<h1>CLIENT</h1>
+<button class="aui-button" id="dialog-button-add-a-client-from-client">Add a client</button>
+<div class="content-container">
+    <br>
+    <div class="clients">
+        <table class="aui">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>lastName</th>
+                    <th>firstName</th>
+                    <th>middleName</th>
+                    <th>birthday</th>
+                    <th>address</th>
+                    <th>phone</th>
+                    <th>email</th>
+                    <th>dogs</th>
+                    <th>paddocks</th>
+                </tr>
+            </thead>
+            <tbody>
+                #foreach( $client in $clients )
+
+                <tr>
+                    <td id="idClientClient">$client.getID()</td>
+                    <td id="LastNameClient"><input size="10" value="$client.getLastName()"></td>
+                    <td id="FirstNameClient"><input size="10" value="$client.getFirstName()"></td>
+                    <td id="MiddleNameClient"><input size="10" value="$client.getMiddleName()"></td>
+                    <div>
+                        #*<script>
+                            function transform(birth) {
+                                var result ="";
+                                for(var i=0; i<10; i++) {
+                                    result+=birth[i];
+                                }
+                                return result;
+                            }
+                        </script>*#
+                    #*#set($birthday = $client.getBirthday())
+                    <td id="BirthdayClient">
+                        <script>
+                            document.write(transform($birthday));
+                        </script>
+                    </td>*#
+                    </div>
+                    <td id="BirthdayClient"><input type="date" max="2005-12-31" value="$client.getBirthday()"> <br> $client.getBirthday() </td>
+                    <td id="AddressClient"><input size="10" value="$client.getAddress()"></td>
+                    <td id="PhoneClient"><input type="number" size="10" value="$client.getPhone()"></td>
+                    <td id="EmailClient"><input size="15" value="$client.getEmail()"></td>
+                    <td>
+                        #foreach($dogs in $client.getDogs())
+                            $dogs.getName() ($dogs.getID()) <br>
+                        #end
+                    </td>
+                    <td>
+                        #foreach($paddock in $client.getPaddock())
+                            #set ($walker = $paddock.getWalker())
+                            $paddock.getPlace(), $paddock.getWalkingTime(),
+                            $walker.getLastName() $walker.getFirstName() ($paddock.getID())
+                            <a href="$paddock.getLink()">Link IN JIRA</a>
+                            <br>
+                        #end
+                    </td>
+                    <td><button class="buttonUpdateClient">update</button></td>
+                    <td><button class="buttonDeleteClient">delete</button></td>
+                </tr>
+                #end
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

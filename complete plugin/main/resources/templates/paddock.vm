@@ -1,0 +1,167 @@
+<html>
+<head>
+    <title>paddock</title>
+    <meta name="decorator" content="atl.general">
+    $webResourceManager.requireResourcesForContext("myPlugin5")
+    $webResourceManager.requireResource("myPlugin5-resources")
+</head>
+<body>
+<h1>PADDOCK</h1>
+<button class="aui-button" id="dialog-button-add-a-paddock-from-paddock">Add a paddock</button>
+<div class="content-container">
+    <br><br>
+    <div class="dogs">
+        <table class="aui">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>place</th>
+                <th>walking time</th>
+                <th>duration</th>
+                <th>status</th>
+                <th>walker</th>
+                <th>client</th>
+                <th>dogs</th>
+                <th>link</th>
+            </tr>
+            </thead>
+            <tbody>
+                #foreach( $paddock in $paddocks )
+                <tr>
+                    <td id="idPaddockPaddock">$paddock.getID()</td>
+                    <td id="PlacePaddock">
+                        <select>
+                            #set($place = $paddock.getPlace())
+                            #if($place == "Площадь Горького")
+                                <option selected>Площадь Горького</option>
+                            #else <option>Площадь Горького</option>
+                            #end
+                            #if($place == "Площадь Минина")
+                                <option selected>Площадь Минина</option>
+                            #else <option>Площадь Минина</option>
+                            #end
+                            #if($place == "Центр Сормово")
+                                <option selected>Центр Сормово</option>
+                            #else <option>Центр Сормово</option>
+                            #end
+                            #if($place == "Московский вокзал")
+                                <option selected>Московский вокзал</option>
+                            #else <option>Московский вокзал</option>
+                            #end
+                            #if($place == "Пушкинский парк")
+                                <option selected>Пушкинский парк</option>
+                            #else <option>Пушкинский парк</option>
+                            #end
+                        </select>
+                    </td>
+                    <td id="WalkingTimePaddock"><input type="datetime-local" value="$paddock.getWalkingTime()">
+                        <br> $paddock.getWalkingTime() </td>
+                    <td id="DurationPaddock"><input type="number" value="$paddock.getDuration()"></td>
+                    <td id="StatusPaddock">
+                        <select>
+                            #set($status = $paddock.getStatus())
+                            #if($status == "open")
+                                <option selected>open</option>
+                            #else <option>open</option>
+                            #end
+                            #if($status == "accepted")
+                                <option selected>accepted</option>
+                            #else <option>accepted</option>
+                            #end
+                            #if($status == "in progress")
+                                <option selected>in progress</option>
+                            #else <option>in progress</option>
+                            #end
+                            #if($status == "complete")
+                                <option selected>complete</option>
+                            #else <option>complete</option>
+                            #end
+                            #if($status == "cancel")
+                                <option selected>cancel</option>
+                            #else <option>cancel</option>
+                            #end
+                        </select>
+                    </td>
+                    <td id="WalkerPaddock">
+                        #set ($walker = $paddock.getWalker())
+                        <input size="5" value="$walker.getID()">
+                        ($walker.getFirstName() $walker.getLastName())
+                    </td>
+                    <td id="ClientPaddock">
+                        #set ($client = $paddock.getClient())
+                        <input size="5" value="$client.getID()">
+                        ($client.getFirstName() $client.getLastName())
+                    </td>
+                    <td id="IdDogsPaddock">
+                        #foreach($dog in $paddock.getDogs())
+                            $dog.getName() ($dog.getID()) <br>
+                        #end
+                    </td>
+                    <td><a href="$paddock.getLink()">Link IN JIRA</a></td>
+                    <td><button class="buttonUpdatePaddock">update</button></td>
+                    <td><button class="buttonDeletePaddock">delete</button></td>
+                </tr>
+                #end
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="hidddd">
+    <table class="aui">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>lastName</th>
+            <th>firstName</th>
+        </tr>
+        </thead>
+        <tbody>
+            #foreach( $client in $clients )
+            <tr>
+                <td id="idClientClientPaddock">$client.getID()</td>
+                <td id="LastNameClientPaddock">$client.getLastName()</td>
+                <td id="FirstNameClientPaddock">$client.getFirstName()</td>
+            </tr>
+            #end
+        </tbody>
+    </table>
+
+    <table class="aui">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>lastName</th>
+            <th>firstName</th>
+        </tr>
+        </thead>
+        <tbody>
+            #foreach( $walker in $walkers )
+            <tr>
+                <td id="idWalkerWalkerPaddock">$walker.getID()</td>
+                <td id="LastNameWalkerPaddock">$walker.getLastName()</td>
+                <td id="FirstNameWalkerPaddock">$walker.getFirstName()</td>
+            </tr>
+            #end
+        </tbody>
+    </table>
+
+    <table class="aui">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>name</th>
+        </tr>
+        </thead>
+        <tbody>
+            #foreach( $dog in $dogs )
+            <tr>
+                <td id="idDogDogPaddock">$dog.getID()</td>
+                <td id="NameDogPaddock">$dog.getName()</td>
+            </tr>
+            #end
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
